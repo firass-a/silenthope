@@ -1,0 +1,219 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+:root {
+  --radius: 1rem;
+
+  /*
+    Silent Hope — lavender identity + warm neutrals
+    Purple is accent, not the whole UI. Light mode only.
+  */
+  --background: oklch(98.2% 0.012 290);
+  --foreground: oklch(22% 0.04 285);
+  --card: oklch(99.2% 0.006 290);
+  --card-foreground: oklch(22% 0.04 285);
+  --popover: oklch(99.4% 0.004 290);
+  --popover-foreground: oklch(22% 0.04 285);
+  --primary: oklch(42% 0.16 295);
+  --primary-foreground: oklch(98% 0.01 290);
+  --secondary: oklch(95% 0.02 290);
+  --secondary-foreground: oklch(30% 0.06 290);
+  --muted: oklch(95.5% 0.015 285);
+  --muted-foreground: oklch(48% 0.03 285);
+  --accent: oklch(72% 0.12 310);
+  --accent-foreground: oklch(22% 0.05 290);
+  --destructive: oklch(55% 0.2 25);
+  --destructive-foreground: oklch(98% 0.01 25);
+  --border: oklch(90% 0.02 290);
+  --input: oklch(92% 0.015 290);
+  --ring: oklch(55% 0.14 295);
+  --success: oklch(52% 0.1 155);
+  --success-foreground: oklch(98% 0.01 155);
+  --warning: oklch(72% 0.14 75);
+  --warning-foreground: oklch(28% 0.05 70);
+  --info: oklch(55% 0.1 250);
+  --info-foreground: oklch(98% 0.01 250);
+
+  --brand-50: oklch(97.5% 0.015 295);
+  --brand-100: oklch(94% 0.03 295);
+  --brand-200: oklch(88% 0.05 295);
+  --brand-300: oklch(78% 0.08 295);
+  --brand-400: oklch(65% 0.12 295);
+  --brand-500: oklch(52% 0.15 295);
+  --brand-600: oklch(42% 0.16 295);
+  --brand-700: oklch(35% 0.14 295);
+  --brand-800: oklch(28% 0.1 295);
+  --brand-900: oklch(22% 0.07 295);
+
+  --gold-400: oklch(82% 0.1 85);
+  --gold-500: oklch(74% 0.12 80);
+  --gold-600: oklch(64% 0.12 75);
+
+  --sidebar: oklch(98.5% 0.01 290);
+  --sidebar-foreground: oklch(22% 0.04 285);
+  --sidebar-primary: oklch(42% 0.16 295);
+  --sidebar-primary-foreground: oklch(98% 0.01 290);
+  --sidebar-accent: oklch(94% 0.03 295);
+  --sidebar-accent-foreground: oklch(30% 0.06 290);
+  --sidebar-border: oklch(91% 0.02 290);
+  --sidebar-ring: oklch(55% 0.14 295);
+
+  --font-size-scale: 1;
+  color-scheme: light;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-success: var(--success);
+  --color-success-foreground: var(--success-foreground);
+  --color-warning: var(--warning);
+  --color-warning-foreground: var(--warning-foreground);
+  --color-info: var(--info);
+  --color-info-foreground: var(--info-foreground);
+  --color-brand-50: var(--brand-50);
+  --color-brand-100: var(--brand-100);
+  --color-brand-200: var(--brand-200);
+  --color-brand-300: var(--brand-300);
+  --color-brand-400: var(--brand-400);
+  --color-brand-500: var(--brand-500);
+  --color-brand-600: var(--brand-600);
+  --color-brand-700: var(--brand-700);
+  --color-brand-800: var(--brand-800);
+  --color-brand-900: var(--brand-900);
+  --color-gold-400: var(--gold-400);
+  --color-gold-500: var(--gold-500);
+  --color-gold-600: var(--gold-600);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --radius-sm: calc(var(--radius) - 6px);
+  --radius-md: calc(var(--radius) - 3px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 10px);
+  --font-sans: var(--font-ibm-plex-arabic), ui-sans-serif, system-ui, sans-serif;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+
+  html {
+    direction: rtl;
+    font-size: calc(16px * var(--font-size-scale));
+    color-scheme: light;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+    background-image:
+      radial-gradient(ellipse 70% 45% at 100% -10%, oklch(78% 0.08 295 / 0.22), transparent),
+      radial-gradient(ellipse 50% 40% at 0% 100%, oklch(88% 0.04 85 / 0.18), transparent);
+    background-attachment: fixed;
+  }
+
+  h1,
+  h2,
+  h3 {
+    @apply tracking-tight text-balance;
+  }
+
+  .high-contrast {
+    --foreground: oklch(14% 0.05 285);
+    --muted-foreground: oklch(28% 0.04 285);
+    --border: oklch(62% 0.04 290);
+  }
+
+  :focus-visible {
+    @apply outline-2 outline-offset-2 outline-ring;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+
+  .reduce-motion *,
+  .reduce-motion *::before,
+  .reduce-motion *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+@layer utilities {
+  .surface-soft {
+    background: linear-gradient(
+      180deg,
+      oklch(99% 0.008 290) 0%,
+      oklch(96.5% 0.02 295 / 0.7) 100%
+    );
+  }
+
+  .gradient-hero {
+    background: linear-gradient(
+      135deg,
+      oklch(38% 0.15 295) 0%,
+      oklch(45% 0.14 310) 48%,
+      oklch(52% 0.1 280) 100%
+    );
+  }
+
+  .gradient-mist {
+    background: linear-gradient(
+      120deg,
+      oklch(96% 0.03 295) 0%,
+      oklch(98% 0.01 85) 50%,
+      oklch(95% 0.025 310) 100%
+    );
+  }
+
+  .text-display {
+    @apply text-4xl font-bold leading-[1.15] md:text-5xl lg:text-6xl;
+  }
+
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .scroller-x {
+    @apply flex gap-4 overflow-x-auto pb-2;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .scroller-x > * {
+    scroll-snap-align: start;
+  }
+}

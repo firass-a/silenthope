@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="480" viewBox="0 0 800 480" fill="none">
+  <rect width="800" height="480" rx="24" fill="#2F6F6A"/>
+  <rect x="140" y="120" width="520" height="240" rx="16" fill="#0F2E2C"/>
+  <text x="180" y="220" fill="#C9A227" font-family="monospace" font-size="28">&lt;access /&gt;</text>
+  <text x="180" y="280" fill="#F7F4EF" font-family="monospace" font-size="22">visual.first = true</text>
+</svg>
