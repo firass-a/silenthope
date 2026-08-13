@@ -4,7 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { AnimatePresence, motion } from "framer-motion";
-import { Check, GraduationCap, Shield } from "lucide-react";
+import { Check, ChevronLeft, GraduationCap, Shield } from "lucide-react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -23,11 +23,15 @@ const STEPS = [
   "جاهز!",
 ] as const;
 
+const fieldClass = "h-10 rounded-xl";
+
 export default function RegisterPage() {
   const router = useRouter();
   const registerStudent = useAuthStore((s) => s.registerStudent);
   const [step, setStep] = useState(0);
-  const [roleChoice, setRoleChoice] = useState<"student" | "staff" | null>(null);
+  const [roleChoice, setRoleChoice] = useState<"student" | "staff" | null>(
+    "student"
+  );
   const [form, setForm] = useState({
     firstName: "",
     lastName: "",
@@ -66,7 +70,12 @@ export default function RegisterPage() {
       }
     }
     if (step === 1) {
-      if (!form.firstName || !form.lastName || !form.email || form.password.length < 6) {
+      if (
+        !form.firstName ||
+        !form.lastName ||
+        !form.email ||
+        form.password.length < 6
+      ) {
         toast.error("أكمل المعلومات وكلمة مرور من 6 أحرف على الأقل");
         return;
       }
@@ -103,260 +112,360 @@ export default function RegisterPage() {
   }
 
   return (
-    <div className="mx-auto flex min-h-screen max-w-5xl flex-col px-4 py-8 md:px-6 md:py-12">
-      <div className="mb-8 flex items-center justify-between gap-4">
-        <Link href="/" className="flex items-center">
-          <BrandLogo size="sm" withWordmark />
-        </Link>
-        <Button asChild variant="ghost" size="sm">
-          <Link href="/login">لديك حساب؟ دخول</Link>
-        </Button>
-      </div>
-
-      <div className="mb-8">
-        <p className="text-sm font-semibold text-brand-600">
-          الخطوة {step + 1} من {STEPS.length}
-        </p>
-        <h1 className="mt-2 text-3xl font-bold md:text-4xl">{STEPS[step]}</h1>
-        <div className="mt-5 flex gap-1.5" aria-hidden>
-          {STEPS.map((_, i) => (
-            <div
-              key={i}
-              className={cn(
-                "h-1.5 flex-1 rounded-full transition",
-                i <= step ? "bg-primary" : "bg-border"
-              )}
-            />
-          ))}
+    <div className="flex min-h-screen items-start justify-center px-4 py-6 sm:items-center sm:py-10">
+      <div className="w-full max-w-md">
+        <div className="mb-5 flex items-center justify-between gap-3">
+          <Link href="/" className="flex items-center">
+            <BrandLogo size="sm" withWordmark />
+          </Link>
+          <Link
+            href="/login"
+            className="text-sm font-medium text-brand-700 hover:underline"
+          >
+            لديك حساب؟ دخول
+          </Link>
         </div>
-      </div>
 
-      <div className="flex-1 rounded-[2rem] border border-border/60 bg-card/70 p-6 shadow-sm md:p-10">
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={step}
-            initial={{ opacity: 0, x: 24 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: -24 }}
-            transition={{ duration: 0.25 }}
-            className="space-y-6"
-          >
-            {step === 0 ? (
-              <div className="grid gap-4 sm:grid-cols-2">
-                <button
-                  type="button"
-                  onClick={() => setRoleChoice("student")}
-                  className={cn(
-                    "rounded-3xl border p-6 text-start transition",
-                    roleChoice === "student"
-                      ? "border-primary bg-brand-50 shadow-sm"
-                      : "border-border hover:bg-secondary/60"
-                  )}
-                >
-                  <GraduationCap className="mb-4 size-8 text-brand-600" />
-                  <p className="text-xl font-bold">طالب</p>
-                  <p className="mt-2 text-sm text-muted-foreground">
-                    ابدأ رحلتك في التعلّم البصري وتنمية مواهبك.
-                  </p>
-                </button>
-                <button
-                  type="button"
-                  onClick={() => setRoleChoice("staff")}
-                  className={cn(
-                    "rounded-3xl border p-6 text-start transition",
-                    roleChoice === "staff"
-                      ? "border-primary bg-brand-50 shadow-sm"
-                      : "border-border hover:bg-secondary/60"
-                  )}
-                >
-                  <Shield className="mb-4 size-8 text-brand-600" />
-                  <p className="text-xl font-bold">مسؤول / مشرف</p>
-                  <p className="mt-2 text-sm text-muted-foreground">
-                    الدخول عبر حسابات الإدارة المخصّصة.
-                  </p>
-                </button>
-              </div>
-            ) : null}
-
-            {step === 1 ? (
-              <div className="grid gap-4 sm:grid-cols-2">
-                <div className="space-y-2">
-                  <Label htmlFor="firstName">الاسم</Label>
-                  <Input
-                    id="firstName"
-                    value={form.firstName}
-                    onChange={(e) => setForm({ ...form, firstName: e.target.value })}
-                  />
-                </div>
-                <div className="space-y-2">
-                  <Label htmlFor="lastName">اللقب</Label>
-                  <Input
-                    id="lastName"
-                    value={form.lastName}
-                    onChange={(e) => setForm({ ...form, lastName: e.target.value })}
-                  />
-                </div>
-                <div className="space-y-2 sm:col-span-2">
-                  <Label htmlFor="email">البريد الإلكتروني</Label>
-                  <Input
-                    id="email"
-                    type="email"
-                    dir="ltr"
-                    className="text-left"
-                    value={form.email}
-                    onChange={(e) => setForm({ ...form, email: e.target.value })}
-                  />
-                </div>
-                <div className="space-y-2 sm:col-span-2">
-                  <Label htmlFor="password">كلمة المرور</Label>
-                  <Input
-                    id="password"
-                    type="password"
-                    dir="ltr"
-                    className="text-left"
-                    value={form.password}
-                    onChange={(e) => setForm({ ...form, password: e.target.value })}
-                  />
-                </div>
-              </div>
-            ) : null}
-
-            {step === 2 ? (
-              <div className="grid gap-4 sm:grid-cols-2">
-                <div className="space-y-2 sm:col-span-2">
-                  <Label htmlFor="university">الجامعة</Label>
-                  <Input
-                    id="university"
-                    value={form.university}
-                    onChange={(e) => setForm({ ...form, university: e.target.value })}
-                    placeholder="مثال: جامعة الجزائر 3"
-                  />
-                </div>
-                <div className="space-y-2">
-                  <Label htmlFor="faculty">الكلية</Label>
-                  <Input
-                    id="faculty"
-                    value={form.faculty}
-                    onChange={(e) => setForm({ ...form, faculty: e.target.value })}
-                  />
-                </div>
-                <div className="space-y-2">
-                  <Label htmlFor="major">التخصص</Label>
-                  <Input
-                    id="major"
-                    value={form.major}
-                    onChange={(e) => setForm({ ...form, major: e.target.value })}
-                  />
-                </div>
-                <div className="space-y-2 sm:col-span-2">
-                  <Label htmlFor="level">المستوى الدراسي</Label>
-                  <select
-                    id="level"
-                    className="flex h-11 w-full rounded-full border border-input bg-transparent px-4 text-sm"
-                    value={form.academicLevel}
-                    onChange={(e) =>
-                      setForm({ ...form, academicLevel: e.target.value })
-                    }
-                  >
-                    {[
-                      "السنة الأولى",
-                      "السنة الثانية",
-                      "السنة الثالثة",
-                      "السنة الرابعة",
-                      "ماستر",
-                    ].map((l) => (
-                      <option key={l} value={l}>
-                        {l}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-              </div>
-            ) : null}
-
-            {step === 3 ? (
-              <div className="flex flex-wrap gap-2">
-                {INTEREST_CHIPS.map((chip) => {
-                  const on = form.interests.includes(chip);
-                  return (
-                    <button
-                      key={chip}
-                      type="button"
-                      onClick={() => toggleChip("interests", chip)}
-                      className={cn(
-                        "rounded-full border px-4 py-2 text-sm font-medium transition",
-                        on
-                          ? "border-primary bg-primary text-primary-foreground"
-                          : "border-border bg-background hover:bg-secondary"
-                      )}
-                    >
-                      {on ? <Check className="me-1 inline size-3.5" /> : null}
-                      {chip}
-                    </button>
-                  );
-                })}
-              </div>
-            ) : null}
-
-            {step === 4 ? (
-              <div className="flex flex-wrap gap-2">
-                {SUBJECT_CHIPS.map((chip) => {
-                  const on = form.subjects.includes(chip);
-                  return (
-                    <button
-                      key={chip}
-                      type="button"
-                      onClick={() => toggleChip("subjects", chip)}
-                      className={cn(
-                        "rounded-full border px-4 py-2 text-sm font-medium transition",
-                        on
-                          ? "border-primary bg-primary text-primary-foreground"
-                          : "border-border bg-background hover:bg-secondary"
-                      )}
-                    >
-                      {on ? <Check className="me-1 inline size-3.5" /> : null}
-                      {chip}
-                    </button>
-                  );
-                })}
-              </div>
-            ) : null}
-
-            {step === 5 ? (
-              <div className="space-y-4 text-center">
-                <div className="mx-auto flex size-16 items-center justify-center rounded-3xl bg-brand-100 text-brand-700">
-                  <Check className="size-8" />
-                </div>
-                <h2 className="text-2xl font-bold">
-                  أهلاً {form.firstName} — ملفك جاهز
-                </h2>
-                <p className="mx-auto max-w-md text-muted-foreground">
-                  سننشئ ملفك الأكاديمي وتفضيلاتك ونفتح مساحة التعلّم البصرية.
+        <div className="overflow-hidden rounded-2xl border border-border/70 bg-card shadow-sm">
+          <div className="border-b border-border/60 px-5 py-4">
+            <div className="flex items-center justify-between gap-3">
+              <div>
+                <p className="text-xs font-semibold text-brand-600">
+                  الخطوة {step + 1} / {STEPS.length}
                 </p>
-                <ul className="mx-auto max-w-sm space-y-2 text-sm text-muted-foreground">
-                  <li>
-                    {form.university} — {form.major}
-                  </li>
-                  <li>{form.interests.join(" · ")}</li>
-                  <li>{form.subjects.join(" · ")}</li>
-                </ul>
+                <h1 className="mt-0.5 text-xl font-bold">{STEPS[step]}</h1>
               </div>
-            ) : null}
-          </motion.div>
-        </AnimatePresence>
+              <span className="rounded-full bg-brand-50 px-2.5 py-1 text-xs font-medium text-brand-700">
+                {Math.round(((step + 1) / STEPS.length) * 100)}%
+              </span>
+            </div>
+            <div className="mt-3 h-1 overflow-hidden rounded-full bg-secondary">
+              <div
+                className="h-full rounded-full bg-primary transition-all duration-300"
+                style={{ width: `${((step + 1) / STEPS.length) * 100}%` }}
+              />
+            </div>
+          </div>
 
-        <div className="mt-10 flex items-center justify-between gap-3">
-          <Button
-            type="button"
-            variant="outline"
-            onClick={back}
-            disabled={step === 0}
-          >
-            رجوع
-          </Button>
-          <Button type="button" size="lg" onClick={next}>
-            {step === STEPS.length - 1 ? "إنشاء الحساب والبدء" : "متابعة"}
-          </Button>
+          <div className="px-5 py-5">
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={step}
+                initial={{ opacity: 0, y: 8 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -8 }}
+                transition={{ duration: 0.2 }}
+              >
+                {step === 0 ? (
+                  <div className="space-y-2">
+                    <p className="mb-3 text-sm text-muted-foreground">
+                      اختر نوع حسابك للمتابعة.
+                    </p>
+                    {(
+                      [
+                        {
+                          id: "student" as const,
+                          title: "طالب",
+                          desc: "تعلّم بصري وتنمية مواهب",
+                          icon: GraduationCap,
+                        },
+                        {
+                          id: "staff" as const,
+                          title: "مسؤول / مشرف",
+                          desc: "الدخول عبر حسابات الإدارة",
+                          icon: Shield,
+                        },
+                      ] as const
+                    ).map((opt) => {
+                      const Icon = opt.icon;
+                      const on = roleChoice === opt.id;
+                      return (
+                        <button
+                          key={opt.id}
+                          type="button"
+                          onClick={() => setRoleChoice(opt.id)}
+                          className={cn(
+                            "flex w-full items-center gap-3 rounded-xl border px-3.5 py-3 text-start transition",
+                            on
+                              ? "border-primary bg-brand-50"
+                              : "border-border hover:bg-secondary/50"
+                          )}
+                        >
+                          <span
+                            className={cn(
+                              "flex size-9 shrink-0 items-center justify-center rounded-lg",
+                              on
+                                ? "bg-primary text-primary-foreground"
+                                : "bg-secondary text-brand-700"
+                            )}
+                          >
+                            <Icon className="size-4" />
+                          </span>
+                          <span className="min-w-0 flex-1">
+                            <span className="block text-sm font-bold">
+                              {opt.title}
+                            </span>
+                            <span className="block text-xs text-muted-foreground">
+                              {opt.desc}
+                            </span>
+                          </span>
+                          <span
+                            className={cn(
+                              "size-4 shrink-0 rounded-full border",
+                              on
+                                ? "border-primary bg-primary"
+                                : "border-border"
+                            )}
+                            aria-hidden
+                          />
+                        </button>
+                      );
+                    })}
+                  </div>
+                ) : null}
+
+                {step === 1 ? (
+                  <div className="grid gap-3 sm:grid-cols-2">
+                    <div className="space-y-1.5">
+                      <Label htmlFor="firstName" className="text-xs">
+                        الاسم
+                      </Label>
+                      <Input
+                        id="firstName"
+                        className={fieldClass}
+                        value={form.firstName}
+                        onChange={(e) =>
+                          setForm({ ...form, firstName: e.target.value })
+                        }
+                      />
+                    </div>
+                    <div className="space-y-1.5">
+                      <Label htmlFor="lastName" className="text-xs">
+                        اللقب
+                      </Label>
+                      <Input
+                        id="lastName"
+                        className={fieldClass}
+                        value={form.lastName}
+                        onChange={(e) =>
+                          setForm({ ...form, lastName: e.target.value })
+                        }
+                      />
+                    </div>
+                    <div className="space-y-1.5 sm:col-span-2">
+                      <Label htmlFor="email" className="text-xs">
+                        البريد الإلكتروني
+                      </Label>
+                      <Input
+                        id="email"
+                        type="email"
+                        dir="ltr"
+                        className={cn(fieldClass, "text-left")}
+                        value={form.email}
+                        onChange={(e) =>
+                          setForm({ ...form, email: e.target.value })
+                        }
+                      />
+                    </div>
+                    <div className="space-y-1.5 sm:col-span-2">
+                      <Label htmlFor="password" className="text-xs">
+                        كلمة المرور
+                      </Label>
+                      <Input
+                        id="password"
+                        type="password"
+                        dir="ltr"
+                        className={cn(fieldClass, "text-left")}
+                        value={form.password}
+                        onChange={(e) =>
+                          setForm({ ...form, password: e.target.value })
+                        }
+                      />
+                    </div>
+                  </div>
+                ) : null}
+
+                {step === 2 ? (
+                  <div className="grid gap-3 sm:grid-cols-2">
+                    <div className="space-y-1.5 sm:col-span-2">
+                      <Label htmlFor="university" className="text-xs">
+                        الجامعة
+                      </Label>
+                      <Input
+                        id="university"
+                        className={fieldClass}
+                        value={form.university}
+                        onChange={(e) =>
+                          setForm({ ...form, university: e.target.value })
+                        }
+                        placeholder="مثال: جامعة الجزائر 3"
+                      />
+                    </div>
+                    <div className="space-y-1.5">
+                      <Label htmlFor="faculty" className="text-xs">
+                        الكلية
+                      </Label>
+                      <Input
+                        id="faculty"
+                        className={fieldClass}
+                        value={form.faculty}
+                        onChange={(e) =>
+                          setForm({ ...form, faculty: e.target.value })
+                        }
+                      />
+                    </div>
+                    <div className="space-y-1.5">
+                      <Label htmlFor="major" className="text-xs">
+                        التخصص
+                      </Label>
+                      <Input
+                        id="major"
+                        className={fieldClass}
+                        value={form.major}
+                        onChange={(e) =>
+                          setForm({ ...form, major: e.target.value })
+                        }
+                      />
+                    </div>
+                    <div className="space-y-1.5 sm:col-span-2">
+                      <Label htmlFor="level" className="text-xs">
+                        المستوى الدراسي
+                      </Label>
+                      <select
+                        id="level"
+                        className="flex h-10 w-full rounded-xl border border-input bg-transparent px-3 text-sm"
+                        value={form.academicLevel}
+                        onChange={(e) =>
+                          setForm({ ...form, academicLevel: e.target.value })
+                        }
+                      >
+                        {[
+                          "السنة الأولى",
+                          "السنة الثانية",
+                          "السنة الثالثة",
+                          "السنة الرابعة",
+                          "ماستر",
+                        ].map((l) => (
+                          <option key={l} value={l}>
+                            {l}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+                  </div>
+                ) : null}
+
+                {step === 3 ? (
+                  <div>
+                    <p className="mb-3 text-sm text-muted-foreground">
+                      اختر ما يهمّك (واحد على الأقل).
+                    </p>
+                    <div className="flex flex-wrap gap-1.5">
+                      {INTEREST_CHIPS.map((chip) => {
+                        const on = form.interests.includes(chip);
+                        return (
+                          <button
+                            key={chip}
+                            type="button"
+                            onClick={() => toggleChip("interests", chip)}
+                            className={cn(
+                              "rounded-full border px-3 py-1.5 text-xs font-medium transition",
+                              on
+                                ? "border-primary bg-primary text-primary-foreground"
+                                : "border-border bg-background hover:bg-secondary"
+                            )}
+                          >
+                            {on ? (
+                              <Check className="me-1 inline size-3" />
+                            ) : null}
+                            {chip}
+                          </button>
+                        );
+                      })}
+                    </div>
+                  </div>
+                ) : null}
+
+                {step === 4 ? (
+                  <div>
+                    <p className="mb-3 text-sm text-muted-foreground">
+                      المواد التي تريد متابعتها.
+                    </p>
+                    <div className="flex flex-wrap gap-1.5">
+                      {SUBJECT_CHIPS.map((chip) => {
+                        const on = form.subjects.includes(chip);
+                        return (
+                          <button
+                            key={chip}
+                            type="button"
+                            onClick={() => toggleChip("subjects", chip)}
+                            className={cn(
+                              "rounded-full border px-3 py-1.5 text-xs font-medium transition",
+                              on
+                                ? "border-primary bg-primary text-primary-foreground"
+                                : "border-border bg-background hover:bg-secondary"
+                            )}
+                          >
+                            {on ? (
+                              <Check className="me-1 inline size-3" />
+                            ) : null}
+                            {chip}
+                          </button>
+                        );
+                      })}
+                    </div>
+                  </div>
+                ) : null}
+
+                {step === 5 ? (
+                  <div className="space-y-3 text-center">
+                    <div className="mx-auto flex size-12 items-center justify-center rounded-2xl bg-brand-100 text-brand-700">
+                      <Check className="size-6" />
+                    </div>
+                    <div>
+                      <h2 className="text-lg font-bold">
+                        أهلاً {form.firstName} — ملفك جاهز
+                      </h2>
+                      <p className="mt-1 text-sm text-muted-foreground">
+                        سنفتح مساحة التعلّم بعد إنشاء الحساب.
+                      </p>
+                    </div>
+                    <div className="rounded-xl bg-secondary/60 px-3 py-3 text-start text-xs leading-relaxed text-muted-foreground">
+                      <p>
+                        {form.university} — {form.major}
+                      </p>
+                      <p className="mt-1">{form.interests.join(" · ")}</p>
+                      <p className="mt-1">{form.subjects.join(" · ")}</p>
+                    </div>
+                  </div>
+                ) : null}
+              </motion.div>
+            </AnimatePresence>
+          </div>
+
+          <div className="flex items-center justify-between gap-2 border-t border-border/60 bg-secondary/30 px-5 py-3">
+            <Button
+              type="button"
+              variant="ghost"
+              size="sm"
+              onClick={back}
+              disabled={step === 0}
+              className="rounded-xl"
+            >
+              رجوع
+            </Button>
+            <Button
+              type="button"
+              size="sm"
+              onClick={next}
+              className="rounded-xl px-5"
+            >
+              {step === STEPS.length - 1 ? "إنشاء الحساب" : "متابعة"}
+              {step < STEPS.length - 1 ? (
+                <ChevronLeft className="size-4" />
+              ) : null}
+            </Button>
+          </div>
         </div>
       </div>
     </div>
