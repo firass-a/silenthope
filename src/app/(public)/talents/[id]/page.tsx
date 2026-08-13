@@ -49,12 +49,16 @@ export default function TalentProfilePage({
     );
   }
 
-  const gallery = [
-    talent.coverImage || talentImage(talent.id),
-    ...talent.media,
-    talentImage(talent.id, 1),
-    talentImage(talent.id, 2),
-  ].filter(Boolean).slice(0, 4);
+  const gallery = Array.from(
+    new Set(
+      [
+        talent.coverImage || talentImage(talent.id),
+        ...talent.media,
+        talentImage(talent.id, 1),
+        talentImage(talent.id, 2),
+      ].filter(Boolean)
+    )
+  ).slice(0, 4);
 
   return (
     <div>
@@ -149,19 +153,20 @@ export default function TalentProfilePage({
               <Link
                 key={t.id}
                 href={`/talents/${t.id}`}
-                className="min-w-[240px] overflow-hidden rounded-3xl border border-border/50 bg-card"
+                className="group relative min-w-[220px] overflow-hidden rounded-2xl"
               >
-                <div className="relative h-40">
+                <div className="relative aspect-[4/5] w-[220px]">
                   <Image
                     src={t.coverImage || talentImage(t.id, i)}
-                    alt=""
+                    alt={t.title}
                     fill
-                    className="object-cover"
+                    className="object-cover transition duration-500 group-hover:scale-105"
                   />
-                </div>
-                <div className="p-4">
-                  <p className="font-bold">{t.title}</p>
-                  <p className="text-sm text-muted-foreground">{t.studentName}</p>
+                  <div className="absolute inset-0 bg-gradient-to-t from-brand-900/90 via-transparent to-transparent" />
+                  <div className="absolute inset-x-0 bottom-0 p-4 text-white">
+                    <p className="font-bold leading-snug">{t.title}</p>
+                    <p className="mt-1 text-sm text-white/75">{t.studentName}</p>
+                  </div>
                 </div>
               </Link>
             ))}

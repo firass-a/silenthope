@@ -10,36 +10,79 @@ const COURSE_IMAGES: Record<string, string> = {
 };
 
 const TALENT_IMAGES = [
-  "https://images.unsplash.com/photo-1460661419201-fd4cecdf8a8b?w=1200&q=80",
-  "https://images.unsplash.com/photo-1551650975-87deedd944c3?w=1200&q=80",
+  "https://images.unsplash.com/photo-1541961017774-22349e4a1262?w=1200&q=80",
+  "https://images.unsplash.com/photo-1517568730816-501aae259c65?w=1200&q=80",
   "https://images.unsplash.com/photo-1455390582262-044cdead277a?w=1200&q=80",
-  "https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?w=1200&q=80",
-  "https://images.unsplash.com/photo-1626785774573-4b7993143456?w=1200&q=80",
+  "https://images.unsplash.com/photo-1514565131-fce0801e5785?w=1200&q=80",
+  "https://images.unsplash.com/photo-1561070791-2526d30994b5?w=1200&q=80",
   "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1200&q=80",
-  "https://images.unsplash.com/photo-1587825140708-dfaf72ae4b04?w=1200&q=80",
-  "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=1200&q=80",
+  "https://images.unsplash.com/photo-1552664730-d307ca884978?w=1200&q=80",
+  "https://images.unsplash.com/photo-1499781350546-44bf0b45e4e5?w=1200&q=80",
 ];
 
-/** Curated cover photos for seed talent projects */
+/**
+ * Title-matched covers for seed projects:
+ * 001 painting · 002 sign app · 003 writing · 004 city lights
+ * 005 branding · 006 data · 007 whiteboard · 008 sign lessons · 009 posters
+ */
 export const TALENT_COVERS: Record<string, string> = {
   talent_001:
-    "https://images.unsplash.com/photo-1460661419201-fd4cecdf8a8b?w=1200&q=80",
+    "https://images.unsplash.com/photo-1541961017774-22349e4a1262?w=1400&q=80",
   talent_002:
-    "https://images.unsplash.com/photo-1551650975-87deedd944c3?w=1200&q=80",
+    "https://images.unsplash.com/photo-1517568730816-501aae259c65?w=1400&q=80",
   talent_003:
-    "https://images.unsplash.com/photo-1455390582262-044cdead277a?w=1200&q=80",
+    "https://images.unsplash.com/photo-1455390582262-044cdead277a?w=1400&q=80",
   talent_004:
-    "https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?w=1200&q=80",
+    "https://images.unsplash.com/photo-1514565131-fce0801e5785?w=1400&q=80",
   talent_005:
-    "https://images.unsplash.com/photo-1626785774573-4b7993143456?w=1200&q=80",
+    "https://images.unsplash.com/photo-1561070791-2526d30994b5?w=1400&q=80",
   talent_006:
-    "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1200&q=80",
+    "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1400&q=80",
   talent_007:
-    "https://images.unsplash.com/photo-1587825140708-dfaf72ae4b04?w=1200&q=80",
+    "https://images.unsplash.com/photo-1552664730-d307ca884978?w=1400&q=80",
   talent_008:
-    "https://images.unsplash.com/photo-1573164713986-89922e4a97a0?w=1200&q=80",
+    "https://images.unsplash.com/photo-1733370446176-cf060c668a28?w=1400&q=80",
   talent_009:
-    "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1200&q=80",
+    "https://images.unsplash.com/photo-1499781350546-44bf0b45e4e5?w=1400&q=80",
+};
+
+const TALENT_GALLERY: Record<string, string[]> = {
+  talent_001: [
+    "https://images.unsplash.com/photo-1579783902614-a3fb3927b6a5?w=1200&q=80",
+    "https://images.unsplash.com/photo-1513364776144-60967b0f800f?w=1200&q=80",
+  ],
+  talent_002: [
+    "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=1200&q=80",
+    "https://images.unsplash.com/photo-1551650975-87deedd944c3?w=1200&q=80",
+  ],
+  talent_003: [
+    "https://images.unsplash.com/photo-1488190211105-8b0e65b80b4e?w=1200&q=80",
+    "https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=1200&q=80",
+  ],
+  talent_004: [
+    "https://images.unsplash.com/photo-1477959858617-67f85b34b0df?w=1200&q=80",
+    "https://images.unsplash.com/photo-1519501025264-65ba15a82390?w=1200&q=80",
+  ],
+  talent_005: [
+    "https://images.unsplash.com/photo-1609921212029-bb5a28e779e9?w=1200&q=80",
+    "https://images.unsplash.com/photo-1626785774573-4b7993143456?w=1200&q=80",
+  ],
+  talent_006: [
+    "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1200&q=80",
+    "https://images.unsplash.com/photo-1543286386-713bdd548da4?w=1200&q=80",
+  ],
+  talent_007: [
+    "https://images.unsplash.com/photo-1586281380349-632531db7ed4?w=1200&q=80",
+    "https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=1200&q=80",
+  ],
+  talent_008: [
+    "https://images.unsplash.com/photo-1517568730816-501aae259c65?w=1200&q=80",
+    "https://images.unsplash.com/photo-1509062522246-3755977927d7?w=1200&q=80",
+  ],
+  talent_009: [
+    "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=1200&q=80",
+    "https://images.unsplash.com/photo-1561070791-2526d30994b5?w=1200&q=80",
+  ],
 };
 
 const STUDENT_AVATARS = [
@@ -61,7 +104,12 @@ export function courseImage(courseId: string, fallbackIndex = 0): string {
 }
 
 export function talentImage(talentId: string, index = 0): string {
-  if (TALENT_COVERS[talentId]) return TALENT_COVERS[talentId];
+  const cover = TALENT_COVERS[talentId];
+  const extras = TALENT_GALLERY[talentId] ?? [];
+  const sequence = cover ? [cover, ...extras] : extras;
+  if (sequence.length) {
+    return sequence[index % sequence.length];
+  }
   let hash = 0;
   for (let i = 0; i < talentId.length; i++) {
     hash = (hash + talentId.charCodeAt(i) * (i + 1)) % TALENT_IMAGES.length;
