@@ -62,6 +62,9 @@ export const seedAccounts: UserAccount[] = [
   },
 ];
 
+/** Featured on the public homepage stories strip (seed only). */
+export const SHOWCASE_STUDENT_IDS = ["stu_001", "stu_002", "stu_006"] as const;
+
 export const seedStudents: Student[] = [
   {
     id: "stu_001",
@@ -74,6 +77,8 @@ export const seedStudents: Student[] = [
     major: "إدارة الأعمال",
     academicLevel: "السنة الثانية",
     bio: "طالب أصم شغوف بتعلم إدارة المشاريع وتنمية مهارات التصميم البصري.",
+    avatar:
+      "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=800&h=1000&fit=crop&q=80",
     status: "active",
     joinedAt: daysAgo(120),
     progress: 68,
@@ -89,6 +94,8 @@ export const seedStudents: Student[] = [
     major: "إحصاء تطبيقي",
     academicLevel: "السنة الثالثة",
     bio: "مهتمة بتحليل البيانات والعرض البصري للمعلومات.",
+    avatar:
+      "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=800&h=1000&fit=crop&q=80",
     status: "active",
     joinedAt: daysAgo(90),
     progress: 82,
@@ -104,6 +111,8 @@ export const seedStudents: Student[] = [
     major: "اتصال بصري",
     academicLevel: "السنة الأولى",
     bio: "مصمم هاوٍ ومصور يسعى لتطوير مساره الأكاديمي.",
+    avatar:
+      "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&h=1000&fit=crop&q=80",
     status: "active",
     joinedAt: daysAgo(45),
     progress: 35,
@@ -119,6 +128,8 @@ export const seedStudents: Student[] = [
     major: "إعلام آلي",
     academicLevel: "السنة الثانية",
     bio: "مبرمجة مبتدئة تحب الواجهات البصرية وتجربة المستخدم.",
+    avatar:
+      "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=800&h=1000&fit=crop&q=80",
     status: "active",
     joinedAt: daysAgo(60),
     progress: 54,
@@ -134,6 +145,8 @@ export const seedStudents: Student[] = [
     major: "تسويق",
     academicLevel: "السنة الرابعة",
     bio: "مهتم بريادة الأعمال والتسويق البصري للمنتجات المحلية.",
+    avatar:
+      "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=800&h=1000&fit=crop&q=80",
     status: "inactive",
     joinedAt: daysAgo(200),
     progress: 91,
@@ -149,6 +162,8 @@ export const seedStudents: Student[] = [
     major: "فنون تشكيلية",
     academicLevel: "السنة الثالثة",
     bio: "فنانة تشكيلية تعرض أعمالها عبر منصة الأمل الصامت.",
+    avatar:
+      "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=800&h=1000&fit=crop&q=80",
     status: "active",
     joinedAt: daysAgo(30),
     progress: 47,
@@ -164,6 +179,8 @@ export const seedStudents: Student[] = [
     major: "محاسبة",
     academicLevel: "السنة الثانية",
     bio: "يحب تبسيط المفاهيم المحاسبية عبر مخططات بصرية.",
+    avatar:
+      "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=800&h=1000&fit=crop&q=80",
     status: "active",
     joinedAt: daysAgo(75),
     progress: 61,
@@ -179,6 +196,8 @@ export const seedStudents: Student[] = [
     major: "علم النفس",
     academicLevel: "السنة الأولى",
     bio: "كاتبة خواطر ومهتمة بالإدماج الاجتماعي.",
+    avatar:
+      "https://images.unsplash.com/photo-1544005313-94cf00ffd549?w=800&h=1000&fit=crop&q=80",
     status: "active",
     joinedAt: daysAgo(15),
     progress: 22,

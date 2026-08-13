@@ -4,7 +4,7 @@ import { create } from "zustand";
 import { persist } from "zustand/middleware";
 import type { Subscription, SubscriptionStatus } from "@/types";
 import { seedSubscriptions } from "@/data/seed";
-import { createSessionStorage } from "@/lib/session-storage";
+import { createAppStorage } from "@/lib/app-storage";
 import { generateId } from "@/lib/utils";
 import { logActivity } from "@/stores/activity.store";
 import { useAuthStore } from "@/stores/auth.store";
@@ -92,7 +92,7 @@ export const useSubscriptionsStore = create<SubscriptionsState>()(
     }),
     {
       name: "silent-hope-subscriptions",
-      storage: createSessionStorage(),
+      storage: createAppStorage(),
     }
   )
 );

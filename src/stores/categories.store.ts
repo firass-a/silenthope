@@ -4,7 +4,7 @@ import { create } from "zustand";
 import { persist } from "zustand/middleware";
 import type { Category } from "@/types";
 import { seedCategories } from "@/data/seed";
-import { createSessionStorage } from "@/lib/session-storage";
+import { createAppStorage } from "@/lib/app-storage";
 import { generateId } from "@/lib/utils";
 import { logActivity } from "@/stores/activity.store";
 import { useAuthStore } from "@/stores/auth.store";
@@ -85,7 +85,7 @@ export const useCategoriesStore = create<CategoriesState>()(
     }),
     {
       name: "silent-hope-categories",
-      storage: createSessionStorage(),
+      storage: createAppStorage(),
     }
   )
 );

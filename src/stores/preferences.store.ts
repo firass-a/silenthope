@@ -3,7 +3,7 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 import type { StudentPreferences } from "@/types";
-import { createSessionStorage } from "@/lib/session-storage";
+import { createAppStorage } from "@/lib/app-storage";
 
 interface PreferencesState {
   byUserId: Record<string, StudentPreferences>;
@@ -23,7 +23,7 @@ export const usePreferencesStore = create<PreferencesState>()(
     }),
     {
       name: "silent-hope-preferences",
-      storage: createSessionStorage(),
+      storage: createAppStorage(),
     }
   )
 );

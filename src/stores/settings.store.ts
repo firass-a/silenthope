@@ -4,7 +4,7 @@ import { create } from "zustand";
 import { persist } from "zustand/middleware";
 import type { PlatformSettings } from "@/types";
 import { seedSettings } from "@/data/seed";
-import { clearAllAppStorage, createSessionStorage } from "@/lib/session-storage";
+import { clearAllAppStorage, createAppStorage } from "@/lib/app-storage";
 import { logActivity } from "@/stores/activity.store";
 import { useAuthStore } from "@/stores/auth.store";
 
@@ -54,7 +54,7 @@ export const useSettingsStore = create<SettingsState>()(
     }),
     {
       name: "silent-hope-settings",
-      storage: createSessionStorage(),
+      storage: createAppStorage(),
       merge: (persisted, current) => {
         const p = (persisted ?? {}) as Partial<SettingsState>;
         return {

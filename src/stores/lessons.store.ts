@@ -4,7 +4,7 @@ import { create } from "zustand";
 import { persist } from "zustand/middleware";
 import type { Lesson, LessonStatus } from "@/types";
 import { seedLessons } from "@/data/seed";
-import { createSessionStorage } from "@/lib/session-storage";
+import { createAppStorage } from "@/lib/app-storage";
 import { generateId } from "@/lib/utils";
 import { logActivity } from "@/stores/activity.store";
 import { useAuthStore } from "@/stores/auth.store";
@@ -125,7 +125,7 @@ export const useLessonsStore = create<LessonsState>()(
     }),
     {
       name: "silent-hope-lessons",
-      storage: createSessionStorage(),
+      storage: createAppStorage(),
     }
   )
 );

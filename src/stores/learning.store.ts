@@ -3,7 +3,7 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 import type { StudentLearningState } from "@/types";
-import { createSessionStorage } from "@/lib/session-storage";
+import { createAppStorage } from "@/lib/app-storage";
 
 interface LearningState {
   byStudentId: Record<string, StudentLearningState>;
@@ -112,7 +112,7 @@ export const useLearningStore = create<LearningState>()(
     }),
     {
       name: "silent-hope-learning",
-      storage: createSessionStorage(),
+      storage: createAppStorage(),
     }
   )
 );

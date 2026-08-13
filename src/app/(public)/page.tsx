@@ -21,6 +21,7 @@ import {
 } from "@/components/brand/section";
 import { VisualStepper } from "@/components/brand/visual-stepper";
 import { CourseTile } from "@/components/learn/course-tile";
+import { SHOWCASE_STUDENT_IDS } from "@/data/seed";
 import { SPECIALTY_VISUALS, courseImage, talentImage, studentAvatar } from "@/lib/media";
 import { useAuthStore } from "@/stores/auth.store";
 import { useCoursesStore } from "@/stores/courses.store";
@@ -48,7 +49,10 @@ export default function HomePage() {
     [allTalents]
   );
   const students = useMemo(
-    () => allStudents.filter((s) => s.status === "active"),
+    () =>
+      SHOWCASE_STUDENT_IDS.map((id) =>
+        allStudents.find((s) => s.id === id && s.status === "active")
+      ).filter((s): s is NonNullable<typeof s> => Boolean(s)),
     [allStudents]
   );
 
@@ -277,19 +281,20 @@ export default function HomePage() {
 
       <Section tone="soft">
         <SectionHeading eyebrow="قصص" title="أصوات بصرية من الطلبة" />
-        <div className="grid gap-8 md:grid-cols-3">
-          {students.slice(0, 3).map((stu) => (
+        <div className="grid gap-6 md:grid-cols-3 md:gap-8">
+          {students.map((stu) => (
             <Link
               key={stu.id}
               href={`/students/${stu.id}`}
-              className="space-y-4"
+              className="group space-y-3"
             >
-              <div className="relative aspect-[4/5] overflow-hidden rounded-[1.75rem]">
+              <div className="relative aspect-[4/5] overflow-hidden rounded-[1.5rem] bg-muted">
                 <Image
                   src={stu.avatar || studentAvatar(stu.id)}
                   alt={`${stu.firstName} ${stu.lastName}`}
                   fill
-                  className="object-cover"
+                  sizes="(max-width: 768px) 100vw, 33vw"
+                  className="object-cover transition duration-500 group-hover:scale-[1.03]"
                 />
               </div>
               <div>
@@ -297,7 +302,7 @@ export default function HomePage() {
                   {stu.firstName} {stu.lastName}
                 </h3>
                 <p className="text-sm text-brand-700">{stu.major}</p>
-                <p className="mt-2 line-clamp-3 text-sm text-muted-foreground">
+                <p className="mt-1.5 line-clamp-2 text-sm leading-relaxed text-muted-foreground">
                   {stu.bio}
                 </p>
               </div>

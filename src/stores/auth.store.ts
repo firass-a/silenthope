@@ -4,7 +4,7 @@ import { create } from "zustand";
 import { persist } from "zustand/middleware";
 import type { AuthSession, RegisterStudentInput, Role, UserAccount } from "@/types";
 import { DEMO_PASSWORD, seedAccounts } from "@/data/seed";
-import { createSessionStorage } from "@/lib/session-storage";
+import { createAppStorage } from "@/lib/app-storage";
 import { generateId } from "@/lib/utils";
 import { logActivity } from "@/stores/activity.store";
 import { useStudentsStore } from "@/stores/students.store";
@@ -136,7 +136,7 @@ export const useAuthStore = create<AuthState>()(
     }),
     {
       name: "silent-hope-auth",
-      storage: createSessionStorage(),
+      storage: createAppStorage(),
       onRehydrateStorage: () => (state) => {
         state?.setHydrated(true);
       },

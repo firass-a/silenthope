@@ -4,7 +4,7 @@ import { create } from "zustand";
 import { persist } from "zustand/middleware";
 import type { ActivityAction, ActivityEntity, ActivityLog, Role } from "@/types";
 import { seedActivity } from "@/data/seed";
-import { createSessionStorage } from "@/lib/session-storage";
+import { createAppStorage } from "@/lib/app-storage";
 import { generateId } from "@/lib/utils";
 
 interface ActivityState {
@@ -37,7 +37,7 @@ export const useActivityStore = create<ActivityState>()(
     }),
     {
       name: "silent-hope-activity",
-      storage: createSessionStorage(),
+      storage: createAppStorage(),
     }
   )
 );

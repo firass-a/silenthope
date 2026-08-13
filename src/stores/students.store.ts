@@ -4,10 +4,12 @@ import { create } from "zustand";
 import { persist } from "zustand/middleware";
 import type { EntityStatus, Student } from "@/types";
 import { seedStudents } from "@/data/seed";
-import { createSessionStorage } from "@/lib/session-storage";
+import { createAppStorage } from "@/lib/app-storage";
 import { generateId } from "@/lib/utils";
 import { logActivity } from "@/stores/activity.store";
 import { useAuthStore } from "@/stores/auth.store";
+
+const SEED_IDS = new Set(seedStudents.map((s) => s.id));
 
 type StudentInput = Omit<Student, "id" | "joinedAt" | "progress"> & {
   progress?: number;
@@ -101,7 +103,26 @@ export const useStudentsStore = create<StudentsState>()(
     }),
     {
       name: "silent-hope-students",
-      storage: createSessionStorage(),
+      storage: createAppStorage(),
+      merge: (persisted, current) => {
+        const p = (persisted ?? {}) as Partial<StudentsState>;
+        const saved = p.students ?? [];
+        const extras = saved.filter((s) => !SEED_IDS.has(s.id));
+        const mergedSeed = seedStudents.map((seed) => {
+          const prev = saved.find((s) => s.id === seed.id);
+          if (!prev) return seed;
+          return {
+            ...seed,
+            progress: prev.progress,
+            status: prev.status,
+          };
+        });
+        return {
+          ...current,
+          ...p,
+          students: [...mergedSeed, ...extras],
+        };
+      },
     }
   )
 );
