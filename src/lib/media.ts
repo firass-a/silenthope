@@ -10,15 +10,37 @@ const COURSE_IMAGES: Record<string, string> = {
 };
 
 const TALENT_IMAGES = [
-  "https://images.unsplash.com/photo-1513364776144-60967b0f800f?w=1200&q=80",
-  "https://images.unsplash.com/photo-1558655146-d09347e92766?w=1200&q=80",
-  "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=1200&q=80",
-  "https://images.unsplash.com/photo-1542038784456-1ea8e935640e?w=1200&q=80",
+  "https://images.unsplash.com/photo-1460661419201-fd4cecdf8a8b?w=1200&q=80",
+  "https://images.unsplash.com/photo-1551650975-87deedd944c3?w=1200&q=80",
   "https://images.unsplash.com/photo-1455390582262-044cdead277a?w=1200&q=80",
-  "https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?w=1200&q=80",
+  "https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?w=1200&q=80",
+  "https://images.unsplash.com/photo-1626785774573-4b7993143456?w=1200&q=80",
+  "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1200&q=80",
+  "https://images.unsplash.com/photo-1587825140708-dfaf72ae4b04?w=1200&q=80",
   "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=1200&q=80",
-  "https://images.unsplash.com/photo-1509062522246-3755977927d7?w=1200&q=80",
 ];
+
+/** Curated cover photos for seed talent projects */
+export const TALENT_COVERS: Record<string, string> = {
+  talent_001:
+    "https://images.unsplash.com/photo-1460661419201-fd4cecdf8a8b?w=1200&q=80",
+  talent_002:
+    "https://images.unsplash.com/photo-1551650975-87deedd944c3?w=1200&q=80",
+  talent_003:
+    "https://images.unsplash.com/photo-1455390582262-044cdead277a?w=1200&q=80",
+  talent_004:
+    "https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?w=1200&q=80",
+  talent_005:
+    "https://images.unsplash.com/photo-1626785774573-4b7993143456?w=1200&q=80",
+  talent_006:
+    "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1200&q=80",
+  talent_007:
+    "https://images.unsplash.com/photo-1587825140708-dfaf72ae4b04?w=1200&q=80",
+  talent_008:
+    "https://images.unsplash.com/photo-1573164713986-89922e4a97a0?w=1200&q=80",
+  talent_009:
+    "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1200&q=80",
+};
 
 const STUDENT_AVATARS = [
   "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&h=1000&fit=crop&q=80",
@@ -39,6 +61,7 @@ export function courseImage(courseId: string, fallbackIndex = 0): string {
 }
 
 export function talentImage(talentId: string, index = 0): string {
+  if (TALENT_COVERS[talentId]) return TALENT_COVERS[talentId];
   let hash = 0;
   for (let i = 0; i < talentId.length; i++) {
     hash = (hash + talentId.charCodeAt(i) * (i + 1)) % TALENT_IMAGES.length;

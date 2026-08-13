@@ -28,6 +28,8 @@ export default function TalentsShowcasePage() {
 
   const featured = visible.find((t) => t.featured) ?? visible[0];
   const rest = visible.filter((t) => t.id !== featured?.id);
+  const categoryName = (id: string) =>
+    categories.find((c) => c.id === id)?.name;
 
   return (
     <div>
@@ -91,7 +93,7 @@ export default function TalentsShowcasePage() {
           <p className="mb-4 text-sm font-semibold text-brand-600">موهبة الأسبوع</p>
           <Link
             href={`/talents/${featured.id}`}
-            className="group relative block min-h-[420px] overflow-hidden rounded-[2rem]"
+            className="group relative block min-h-[380px] overflow-hidden rounded-[2rem] md:min-h-[440px]"
           >
             <Image
               src={featured.coverImage || talentImage(featured.id)}
@@ -99,6 +101,7 @@ export default function TalentsShowcasePage() {
               fill
               className="object-cover transition duration-700 group-hover:scale-105"
               priority
+              sizes="100vw"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-brand-900/85 via-brand-900/25 to-transparent" />
             <div className="absolute inset-x-0 bottom-0 p-8 text-white md:p-12">
@@ -114,28 +117,30 @@ export default function TalentsShowcasePage() {
 
       <Section>
         <SectionHeading title="المعرض" />
-        <div className="columns-1 gap-5 sm:columns-2 lg:columns-3">
+        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {rest.map((t, i) => (
             <Link
               key={t.id}
               href={`/talents/${t.id}`}
-              className="mb-5 block break-inside-avoid overflow-hidden rounded-3xl border border-border/40 bg-card"
+              className="group overflow-hidden rounded-2xl border border-border/50 bg-card transition hover:border-brand-200 hover:shadow-md"
             >
-              <div
-                className="relative w-full overflow-hidden"
-                style={{ aspectRatio: i % 3 === 0 ? "3/4" : i % 3 === 1 ? "1/1" : "4/3" }}
-              >
+              <div className="relative aspect-[4/3] overflow-hidden bg-muted">
                 <Image
                   src={t.coverImage || talentImage(t.id, i)}
                   alt={t.title}
                   fill
-                  className="object-cover transition hover:scale-105"
+                  className="object-cover transition duration-500 group-hover:scale-[1.04]"
                   sizes="(max-width:768px) 100vw, 33vw"
                 />
               </div>
-              <div className="p-4">
-                <h3 className="font-bold">{t.title}</h3>
-                <p className="mt-1 text-sm text-muted-foreground">{t.studentName}</p>
+              <div className="space-y-1.5 p-4">
+                {categoryName(t.categoryId) ? (
+                  <p className="text-xs font-medium text-brand-600">
+                    {categoryName(t.categoryId)}
+                  </p>
+                ) : null}
+                <h3 className="text-base font-bold leading-snug">{t.title}</h3>
+                <p className="text-sm text-muted-foreground">{t.studentName}</p>
               </div>
             </Link>
           ))}

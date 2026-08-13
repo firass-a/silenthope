@@ -9,6 +9,8 @@ import { generateId } from "@/lib/utils";
 import { logActivity } from "@/stores/activity.store";
 import { useAuthStore } from "@/stores/auth.store";
 
+const SEED_IDS = new Set(seedTalents.map((t) => t.id));
+
 type TalentInput = Omit<
   Talent,
   "id" | "createdAt" | "updatedAt" | "views" | "likes" | "featured" | "status"
@@ -153,6 +155,25 @@ export const useTalentsStore = create<TalentsState>()(
     {
       name: "silent-hope-talents",
       storage: createAppStorage(),
+      merge: (persisted, current) => {
+        const p = (persisted ?? {}) as Partial<TalentsState>;
+        const saved = p.talents ?? [];
+        const extras = saved.filter((t) => !SEED_IDS.has(t.id));
+        const mergedSeed = seedTalents.map((seed) => {
+          const prev = saved.find((t) => t.id === seed.id);
+          if (!prev) return seed;
+          return {
+            ...seed,
+            views: Math.max(prev.views, seed.views),
+            likes: Math.max(prev.likes, seed.likes),
+          };
+        });
+        return {
+          ...current,
+          ...p,
+          talents: [...mergedSeed, ...extras],
+        };
+      },
     }
   )
 );
