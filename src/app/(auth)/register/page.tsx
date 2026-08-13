@@ -12,6 +12,7 @@ import { Label } from "@/components/ui/label";
 import { cn } from "@/lib/utils";
 import { INTEREST_CHIPS, SUBJECT_CHIPS } from "@/lib/media";
 import { useAuthStore } from "@/stores/auth.store";
+import { BrandLogo } from "@/components/brand/brand-logo";
 
 const STEPS = [
   "من أنت؟",
@@ -104,11 +105,8 @@ export default function RegisterPage() {
   return (
     <div className="mx-auto flex min-h-screen max-w-5xl flex-col px-4 py-8 md:px-6 md:py-12">
       <div className="mb-8 flex items-center justify-between gap-4">
-        <Link href="/" className="flex items-center gap-2">
-          <span className="flex size-10 items-center justify-center rounded-2xl gradient-hero text-sm font-bold text-primary-foreground">
-            ش
-          </span>
-          <span className="font-bold">الأمل الصامت</span>
+        <Link href="/" className="flex items-center">
+          <BrandLogo size="sm" withWordmark />
         </Link>
         <Button asChild variant="ghost" size="sm">
           <Link href="/login">لديك حساب؟ دخول</Link>

@@ -19,6 +19,7 @@ import { useAuthStore } from "@/stores/auth.store";
 import { useNotificationsStore } from "@/stores/notifications.store";
 import { isStaffRole, ROLE_LABELS } from "@/lib/permissions";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { BrandLogo } from "@/components/brand/brand-logo";
 
 export function SiteHeader() {
   const [open, setOpen] = useState(false);
@@ -35,17 +36,13 @@ export function SiteHeader() {
       <div className="container mx-auto flex h-[4.5rem] items-center justify-between gap-4 px-4 md:px-6">
         <Link
           href={session?.role === "student" ? "/home" : "/"}
-          className="flex items-center gap-3"
+          className="flex items-center"
         >
-          <div className="flex size-11 items-center justify-center rounded-2xl gradient-hero text-sm font-bold text-primary-foreground shadow-sm">
-            ش
-          </div>
-          <div className="leading-tight">
-            <p className="text-lg font-bold tracking-tight">الأمل الصامت</p>
-            <p className="hidden text-xs text-muted-foreground sm:block">
-              نَسمع بالعين ونتعلّم بالعقل
-            </p>
-          </div>
+          <BrandLogo
+            priority
+            withWordmark
+            subtitle="نَسمع بالعين ونتعلّم بالعقل"
+          />
         </Link>
 
         <nav className="hidden items-center gap-1 lg:flex" aria-label="التنقل الرئيسي">

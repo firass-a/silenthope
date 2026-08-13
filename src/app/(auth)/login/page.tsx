@@ -12,6 +12,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { ROLE_LABELS, isStaffRole } from "@/lib/permissions";
+import { BrandLogo } from "@/components/brand/brand-logo";
 
 export default function LoginPage() {
   const router = useRouter();
@@ -42,11 +43,9 @@ export default function LoginPage() {
         animate={{ opacity: 1 }}
         className="relative hidden overflow-hidden gradient-hero p-10 text-primary-foreground lg:flex lg:flex-col lg:justify-between"
       >
-        <Link href="/" className="relative z-10 flex items-center gap-3">
-          <span className="flex size-11 items-center justify-center rounded-2xl bg-white/15 text-sm font-bold backdrop-blur">
-            ش
-          </span>
-          <span className="text-lg font-bold">الأمل الصامت</span>
+        <Link href="/" className="relative z-10 inline-flex items-center gap-3">
+          <BrandLogo size="lg" plate />
+          <span className="text-lg font-bold text-primary-foreground">الأمل الصامت</span>
         </Link>
         <div className="relative z-10 max-w-md space-y-4">
           <h1 className="text-4xl font-bold leading-tight xl:text-5xl">
@@ -68,11 +67,8 @@ export default function LoginPage() {
       <div className="flex items-center justify-center px-4 py-12 md:px-8">
         <div className="w-full max-w-md space-y-8">
           <div>
-            <Link href="/" className="mb-6 inline-flex items-center gap-2 lg:hidden">
-              <span className="flex size-10 items-center justify-center rounded-2xl gradient-hero text-sm font-bold text-primary-foreground">
-                ش
-              </span>
-              <span className="font-bold">الأمل الصامت</span>
+            <Link href="/" className="mb-6 inline-flex lg:hidden">
+              <BrandLogo size="sm" withWordmark />
             </Link>
             <h2 className="text-3xl font-bold">تسجيل الدخول</h2>
             <p className="mt-2 text-muted-foreground">

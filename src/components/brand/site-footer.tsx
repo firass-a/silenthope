@@ -1,16 +1,12 @@
 import Link from "next/link";
+import { BrandLogo } from "@/components/brand/brand-logo";
 
 export function SiteFooter() {
   return (
     <footer className="border-t border-border/60 bg-card/50">
       <div className="container mx-auto grid gap-10 px-4 py-14 md:grid-cols-[1.4fr_1fr_1fr] md:px-6">
         <div className="space-y-4">
-          <div className="flex items-center gap-3">
-            <div className="flex size-10 items-center justify-center rounded-xl gradient-hero text-sm font-bold text-primary-foreground">
-              ش
-            </div>
-            <p className="text-lg font-bold">الأمل الصامت</p>
-          </div>
+          <BrandLogo size="sm" withWordmark />
           <p className="max-w-sm text-sm leading-relaxed text-muted-foreground">
             منصة رقمية مبتكرة تحوّل التعليم الجامعي إلى تجربة بصرية متكاملة موجهة
             خصيصًا لفئة الصم.

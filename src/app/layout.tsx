@@ -16,6 +16,13 @@ export const metadata: Metadata = {
   },
   description:
     "منصة رقمية بصرية تدمج الصم تعليميًا ومهنيًا عبر محتوى جامعي مبسط وفضاء لاكتشاف المواهب.",
+  icons: {
+    icon: [
+      { url: "/brand/favicon-32.png", sizes: "32x32", type: "image/png" },
+      { url: "/brand/favicon-48.png", sizes: "48x48", type: "image/png" },
+    ],
+    apple: [{ url: "/brand/apple-touch-icon.png", sizes: "180x180" }],
+  },
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {

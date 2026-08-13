@@ -6,6 +6,7 @@ import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { publicNav } from "@/lib/nav";
 import { cn } from "@/lib/utils";
+import { BrandLogo } from "@/components/brand/brand-logo";
 
 export function PublicHeader() {
   const [open, setOpen] = useState(false);
@@ -13,14 +14,11 @@ export function PublicHeader() {
   return (
     <header className="sticky top-0 z-50 border-b border-border/60 bg-background/85 backdrop-blur-md">
       <div className="container mx-auto flex h-20 items-center justify-between gap-4 px-4 md:px-6">
-        <Link href="/" className="flex items-center gap-3">
-          <div className="flex size-11 items-center justify-center rounded-2xl gradient-hero text-sm font-bold text-primary-foreground shadow-sm">
-            ش
-          </div>
-          <div className="leading-tight">
-            <p className="text-base font-bold">الأمل الصامت</p>
-            <p className="text-xs text-muted-foreground">نَسمع بالعين ونتعلّم بالعقل</p>
-          </div>
+        <Link href="/" className="flex items-center">
+          <BrandLogo
+            withWordmark
+            subtitle="نَسمع بالعين ونتعلّم بالعقل"
+          />
         </Link>
 
         <nav className="hidden items-center gap-1 lg:flex" aria-label="التنقل الرئيسي">

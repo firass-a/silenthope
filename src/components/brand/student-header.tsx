@@ -19,6 +19,7 @@ import { cn, getInitials } from "@/lib/utils";
 import { useAuthStore } from "@/stores/auth.store";
 import { useNotificationsStore } from "@/stores/notifications.store";
 import { ROLE_LABELS } from "@/lib/permissions";
+import { BrandLogo } from "@/components/brand/brand-logo";
 
 export function StudentHeader() {
   const [open, setOpen] = useState(false);
@@ -35,16 +36,13 @@ export function StudentHeader() {
   return (
     <header className="sticky top-0 z-50 border-b border-border/50 bg-background/90 backdrop-blur-xl">
       <div className="container mx-auto flex h-[4.5rem] items-center justify-between gap-4 px-4 md:px-6">
-        <Link href="/home" className="flex items-center gap-3">
-          <div className="flex size-11 items-center justify-center rounded-2xl gradient-hero text-sm font-bold text-primary-foreground shadow-sm">
-            ش
-          </div>
-          <div className="leading-tight">
-            <p className="text-lg font-bold tracking-tight">مساحتي</p>
-            <p className="hidden text-xs text-brand-700 sm:block">
-              فضاء الطالب — الأمل الصامت
-            </p>
-          </div>
+        <Link href="/home" className="flex items-center">
+          <BrandLogo
+            priority
+            withWordmark
+            title="مساحتي"
+            subtitle="فضاء الطالب — الأمل الصامت"
+          />
         </Link>
 
         <nav

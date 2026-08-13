@@ -7,6 +7,7 @@ import { useAuthStore } from "@/stores/auth.store";
 import { filterNavForRole } from "@/lib/nav";
 import { cn } from "@/lib/utils";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import { BrandLogo } from "@/components/brand/brand-logo";
 
 interface DashboardSidebarProps {
   collapsed?: boolean;
@@ -106,18 +107,13 @@ export function DashboardSidebar({ collapsed, onNavigate }: DashboardSidebarProp
       )}
     >
       <div className={cn("flex items-center gap-3 border-b border-sidebar-border p-4", collapsed && "justify-center")}>
-        <Link
-          href="/admin"
-          className="flex size-10 shrink-0 items-center justify-center rounded-xl gradient-hero text-sm font-bold text-primary-foreground"
-        >
-          ش
+        <Link href="/admin" className="min-w-0">
+          {collapsed ? (
+            <BrandLogo size="sm" variant="icon" />
+          ) : (
+            <BrandLogo size="sm" withWordmark subtitle="إدارة المنصة" />
+          )}
         </Link>
-        {!collapsed ? (
-          <div className="min-w-0">
-            <p className="truncate font-bold">الأمل الصامت</p>
-            <p className="truncate text-xs text-muted-foreground">إدارة المنصة</p>
-          </div>
-        ) : null}
       </div>
 
       <Suspense fallback={<div className="flex-1" />}>
