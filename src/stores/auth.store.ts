@@ -147,10 +147,21 @@ export const useAuthStore = create<AuthState>()(
         const extra = (p.accounts ?? []).filter(
           (a) => !seedEmails.has(a.email.toLowerCase())
         );
+        const accounts = [...seedAccounts, ...extra];
+        let session = p.session ?? current.session;
+        if (session) {
+          const match = accounts.find(
+            (a) => a.email.toLowerCase() === session!.email.toLowerCase()
+          );
+          if (match) {
+            session = { ...session, name: match.name, role: match.role };
+          }
+        }
         return {
           ...current,
           ...p,
-          accounts: [...seedAccounts, ...extra],
+          accounts,
+          session,
         };
       },
     }

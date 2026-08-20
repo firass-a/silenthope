@@ -9,6 +9,8 @@ import { generateId } from "@/lib/utils";
 import { logActivity } from "@/stores/activity.store";
 import { useAuthStore } from "@/stores/auth.store";
 
+const SEED_IDS = new Set(seedAgents.map((a) => a.id));
+
 type AgentInput = Omit<Agent, "id" | "createdAt" | "lastActive">;
 
 interface AgentsState {
@@ -100,6 +102,25 @@ export const useAgentsStore = create<AgentsState>()(
     {
       name: "silent-hope-agents",
       storage: createAppStorage(),
+      merge: (persisted, current) => {
+        const p = (persisted ?? {}) as Partial<AgentsState>;
+        const saved = p.agents ?? [];
+        const extras = saved.filter((a) => !SEED_IDS.has(a.id));
+        const mergedSeed = seedAgents.map((seed) => {
+          const prev = saved.find((a) => a.id === seed.id);
+          if (!prev) return seed;
+          return {
+            ...seed,
+            status: prev.status,
+            lastActive: prev.lastActive,
+          };
+        });
+        return {
+          ...current,
+          ...p,
+          agents: [...mergedSeed, ...extras],
+        };
+      },
     }
   )
 );
